@@ -58,16 +58,20 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
-## Support
+## データベースの作成
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+`./back-end`配下に`.env`ファイルを作成し、以下のように`DATABASE_URL`を設定する
 
-## Stay in touch
+```shell
+DATABASE_URL="postgresql://user:awesomepass@localhost:5432/db?schema=public"
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+`m-template`ディレクトリで、`docker compose up -d`する
 
-## License
+## pgAdminの設定
 
-Nest is [MIT licensed](LICENSE).
+[データベースの作成](#データベースの作成)をした後、`localhost:8080`にアクセスする。  
+アクセス後、`compose.yaml`に書いてあるメールとパスワードでログインする
+オブジェクト > 登録 > サーバー に進み、以下のように登録する
+
+![](./markdown-img/pgadmin.jpg)
