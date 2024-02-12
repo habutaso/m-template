@@ -1,11 +1,21 @@
-FROM node:lts-slim
+FROM node:lts-slim as base
+ENV PNPM_HOME=/pnpm
+ENV PATH="$PNPM_HOME:$PATH"
 
-RUN npm i -g pnpm
+RUN apt-get update -y \
+  && apt-get install -y openssl
+
+RUN corepack enable
 
 WORKDIR /app
 COPY . /app/
 
-RUN pnpm i
+RUN which pnpm
+
+FROM base as develop
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i
+
+RUN npx prisma db pull
 
 EXPOSE 3000
-CMD ["pnpm run start"]
+CMD ["pnpm", "run", "start"]
