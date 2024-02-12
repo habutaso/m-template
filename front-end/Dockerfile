@@ -11,5 +11,5 @@ RUN which pnpm
 
 FROM base as develop
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i
-EXPOSE 3333
-CMD ["pnpm", "run", "dev", "--", "-H", "0.0.0.0", "-p", "3333"]
+EXPOSE 3333 6006
+CMD ["./startup.sh"]

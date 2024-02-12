@@ -22,32 +22,41 @@ services:
     depends_on:
       - postgres
   
-  back-end:
-    container_name: back-end
-    build:
-      context: back-end
-      target: develop
-    ports:
-      - "3000:3000"
-    environment:
-      DATABASE_URL: "postgresql://user:awesomepass@postgres:5432/db?schema=public"
-    volumes:
-      - type: bind
-        source: ./back-end
-        target: /app
-    depends_on:
-      - postgres
+  # back-end:
+  #   container_name: back-end
+  #   build:
+  #     context: back-end
+  #     target: develop
+  #   ports:
+  #     - "3000:3000"
+  #     - "4466:4466"
+  #   environment:
+  #     PRISMA_CONFIG: |
+  #       port: 4466
+  #       databases:
+  #         default:
+  #           connector: postgres
+  #           host: postgres
+  #           port: 5432
+  #           user: user
+  #           password: awesomepass
+  #   volumes:
+  #     - type: bind
+  #       source: ./back-end
+  #       target: /app
+  #   depends_on:
+  #     - postgres
   
-  front-end:
-    container_name: front-end
-    build:
-      context: front-end
-      target: develop
-    ports:
-      - "3333:3333"
-    volumes:
-      - type: bind
-        source: ./front-end
-        target: /app
-    depends_on:
-      - postgres
+  # front-end:
+  #   container_name: front-end
+  #   build:
+  #     context: front-end
+  #     target: develop
+  #   ports:
+  #     - "3333:3333"
+  #   volumes:
+  #     - type: bind
+  #       source: ./front-end
+  #       target: /app
+  #   depends_on:
+  #     - postgres
