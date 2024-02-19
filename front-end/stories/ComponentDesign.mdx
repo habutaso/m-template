@@ -6,33 +6,95 @@ import { Meta } from "@storybook/blocks";
   <h1>フロントエンド設計</h1>
   <p>Next.jsとStoryBookを使用したフロントエンド開発について説明します</p>
 
-{" "}
-
 <h2>設計スタイル</h2>
-<p>主に、2種類の設計スタイルと、それに見合った開発方法を説明します。</p>
-1. <a href="https://zenn.dev/overflow_offers/articles/20220523-component-design-best-practice">【React/Vue.js】コンポーネント設計の（個人的）ベストプラクティス | Offers TechBlog </a>
-2. 応用 Atomic Design
+[Reactのディレクトリ構成でAtomicデザインをやめた話](https://zenn.dev/brachio_takumi/articles/2ab9ef9fbe4159)
+上記サイトをもとに設計思想を考えます。
+
+<h2>Atomic Designのおさらい</h2>
+[Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/)
+Webデザインにおけるデザイン構成の考え方の一つ。コンポーネントを小さく切り分けて再利用しやすくすることを目的とした設計手法である。
+化学の原子構造をモチーフとしており、デザインを原子、分子、有機体、テンプレート、ページの5つのレベルに分けて考える。
+
+<h3>原子</h3>
+ボタンや、テキストフィールドなど、最も小さな単位のコンポーネント。HTMLタグのようなものが該当する。
+
+<div>
+  <label>label</label>
+</div>
+<br />
+<div>
+  <button>button</button>
+</div>
+<br />
+<div>
+  <input placeholder="input" />
+</div>
+
+<h3>分子</h3>
+原子を組み合わせたコンポーネント。ボタンとテキストフィールドを組み合わせた検索フォームなどが該当する。
+<div>
+  <label for="i">label</label>
+  <input id="i" placeholder="input" />
+  <button>button</button>
+</div>
 
 <h2>ファイル構成</h2>
 Next.jsとStorybookをかけ合わせたファイル構成となります
 
 ```
 front-end/
-├── components/
-    ├── common/
-        ├── buttons/
-            ├── button.css
-            ├── Button.stories.ts
-            ├── Button.tsx
-        ├── headers/
-            ├── header.css
-            ├── Header.stories.ts
-            ├── Header.tsx
-├── yourpage1/
-├── yourpage2/
-├── global.css
-├── layout.tsx
-├── page.tsx
+├── common
+│   ├── constants
+│   │   └── index.tsx
+│   ├── hooks
+│   │   └── index.tsx
+│   ├── styles
+│   │   ├── app.css.ts
+│   │   ├── globals.css
+│   │   └── theme.css.ts
+│   ├── types
+│   │   └── index.tsx
+│   └── utils
+│       ├── apiClient.ts
+│       └── imageLoader.ts
+├── components
+│   ├── functional
+│   │   └── Authenticator.tsx
+│   ├── layouts
+│   │   ├── Header
+│   │       ├── Header.stories.tsx
+│   │       ├── index.tsx
+│   │       └── style.css.ts
+│   ├── ui-elements
+│   │   ├── Button
+│   │       ├── Button.stories.tsx
+│   │       ├── index.tsx
+│   │       └── style.css.ts
+│   └── ui-parts
+│       ├── FieldCheckbox
+│           ├── FieldCheckbox.stories.tsx
+│           └── index.tsx
+├── features
+│   ├── Users
+│       ├── api
+│       │   └── index.ts
+│       ├── components
+│       │   └── index.tsx
+│       ├── hooks
+│       │   └── index.ts
+│       ├── helper
+│       │   └── index.ts
+│       ├── index.ts
+│       ├── test
+│       │   └── index.test.ts
+│       └── types
+│           └── index.ts
+└── app
+│   ├── pagename
+	   ├── 404.tsx
+	   ├── _app.tsx
+	   ├── _error.tsx
+	   └── index.tsx
 ```
 
 </div>

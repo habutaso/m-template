@@ -1,6 +1,6 @@
 "use client";
 
-import { Page } from "@/app/components/templates/top/Page";
+import { Page } from "@/app/components/ui-parts/top/Page";
 
 function App() {
   return (
